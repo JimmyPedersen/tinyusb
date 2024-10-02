@@ -99,7 +99,7 @@ extern "C" {
   #include "stm32u0xx.h"
     #define USB_OTG_FS_PERIPH_BASE    USB_OTG_FS_BASE
     #define EP_MAX_FS                 6
-    #define EP_FIFO_SIZE_FS           1280
+    #define EP_FIFO_SIZE_FS           1024
 
 #else
   #error "Unsupported MCUs"
@@ -176,7 +176,7 @@ static inline void dwc2_phy_init(dwc2_regs_t* dwc2, uint8_t hs_phy_type) {
     #endif
 
   } else {
-#if CFG_TUSB_MCU != OPT_MCU_STM32U5
+#if CFG_TUSB_MCU != OPT_MCU_STM32U5 && CFG_TUSB_MCU != OPT_MCU_STM32U0
     // Disable FS PHY, TODO on U5A5 (dwc2 4.11a) 16th bit is 'Host CDP behavior enable'
     dwc2->stm32_gccfg &= ~STM32_GCCFG_PWRDWN;
 #endif
